@@ -1,6 +1,5 @@
 #define InitPlayer
 //gameplay
-topdown = false;
 dead = false;
 checkpoint = noone;
 
@@ -17,20 +16,6 @@ phy_fixed_rotation = true;
 idleSpeed = (1/15);
 runSpeed = 0.25;
 prevSprite = sprite_index;
-
-#define PlayerShift
-///player_shift()
-topdown = !topdown
-
-if(topdown)
-{
-    physics_world_gravity(0.0, 0.0);
-}
-else
-{
-    phy_rotation = 0;
-    physics_world_gravity(0.0, 50.0);
-}
 
 #define PlayerStepTopdown
 ///PlayerStepTopdown
@@ -89,14 +74,19 @@ if(!place_meeting(x, y, obj_wall))
 
 #define PlayerStepPlatform
 ///PlayerStepPlatform
+var multiplier = 1;
+if(!onGround)
+{
+    multiplier = 0.1;
+}
 if(GetButton(LEFT))
 {
-    physics_apply_force(x, y, -s_acceleration, 0);
+    physics_apply_force(x, y, -s_acceleration * multiplier, 0);
     image_xscale = 1;
 }
 if(GetButton(RIGHT))
 {
-    physics_apply_force(x, y, s_acceleration, 0);
+    physics_apply_force(x, y, s_acceleration * multiplier, 0);
     image_xscale = -1;
 }
 
@@ -129,9 +119,14 @@ if(abs(phy_speed_x) > maxSpeed)
     phy_speed_x = sign(phy_speed_x) * maxSpeed;
 }
 
+if(dead)
+{
+    PlayerRespawn();
+}
+
 #define PlayerUpdateAnimation
 ///PlayerUpdateSprite()
-if(topdown)
+if(global.topdown)
 {
     if(dead)
     {
@@ -184,9 +179,9 @@ with(obj_player)
 {
     phy_position_x = checkpoint.x;
     phy_position_y = checkpoint.y;
-    if(topdown != checkpoint.topdown)
+    if(global.topdown != checkpoint.topdown)
     {
-        PlayerShift();
+        Shift();
     }
     dead = false;
 }

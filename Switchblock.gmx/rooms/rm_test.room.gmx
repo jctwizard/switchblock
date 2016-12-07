@@ -63,6 +63,8 @@
     <instance objName="obj_floor" x="592" y="576" name="inst_8610E0B0" locked="0" code="" scaleX="16" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="768" y="472" name="inst_9B7A992C" locked="0" code="" scaleX="12.5" scaleY="7.46666669845581" colour="4294967295" rotation="0"/>
     <instance objName="obj_spawnPoint" x="632" y="664" name="inst_AB285D24" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_spikeBlock" x="904" y="640" name="inst_8C9A0F46" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_world" x="0" y="0" name="inst_5CAEBF93" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>-1</PhysicsWorld>
