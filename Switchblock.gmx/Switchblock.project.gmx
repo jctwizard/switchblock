@@ -29,6 +29,7 @@
     <sprites name="Hazards">
       <sprite>sprites\spr_block</sprite>
     </sprites>
+  </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -44,12 +45,6 @@
   </shaders>
   <objects name="objects">
     <object>objects\obj_player</object>
-    <object>objects\obj_floor</object>
-    <object>objects\obj_wall</object>
-    <object>objects\obj_input</object>
-    <object>objects\obj_rect</object>
-    <object>objects\obj_levelEditor</object>
-    <object>objects\obj_spawnPoint</object>
     <object>objects\obj_background</object>
     <object>objects\obj_world</object>
     <objects name="Scenery">
