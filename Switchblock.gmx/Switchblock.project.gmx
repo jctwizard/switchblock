@@ -26,7 +26,9 @@
     <sprite>sprites\spr_spawn</sprite>
     <sprite>sprites\sprite9</sprite>
     <sprite>sprites\spr_background</sprite>
-  </sprites>
+    <sprites name="Hazards">
+      <sprite>sprites\spr_block</sprite>
+    </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -35,6 +37,7 @@
     <script>scripts\GetButtonDown.gml</script>
     <script>scripts\Raycast.gml</script>
     <script>scripts\InitGame.gml</script>
+    <script>scripts\Shift.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_background.shader</shader>
@@ -48,20 +51,33 @@
     <object>objects\obj_levelEditor</object>
     <object>objects\obj_spawnPoint</object>
     <object>objects\obj_background</object>
+    <object>objects\obj_world</object>
+    <objects name="Scenery">
+      <object>objects\obj_floor</object>
+      <object>objects\obj_wall</object>
+    </objects>
+    <objects name="Util">
+      <object>objects\obj_input</object>
+      <object>objects\obj_spawnPoint</object>
+    </objects>
+    <objects name="Hazards">
+      <object>objects\obj_spikeBlock</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_backgroundTest</room>
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="7">
+  <constants number="8">
     <constant name="TILE_SIZE">16</constant>
-    <constant name="NUM_INPUT">5</constant>
+    <constant name="NUM_INPUT">6</constant>
     <constant name="LEFT">0</constant>
     <constant name="RIGHT">1</constant>
     <constant name="UP">2</constant>
     <constant name="DOWN">3</constant>
     <constant name="ACTION">4</constant>
+    <constant name="SHIFT">5</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

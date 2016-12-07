@@ -50,7 +50,7 @@ InitPlayer();
           <argument>
             <kind>1</kind>
             <string>///Update the player
-if(topdown)
+if(global.topdown)
 {
     PlayerStepTopdown();
 }
@@ -112,7 +112,7 @@ PlayerUpdateAnimation();
         </arguments>
       </action>
     </event>
-    <event eventtype="9" enumb="69">
+    <event eventtype="7" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -129,7 +129,7 @@ PlayerUpdateAnimation();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>PlayerShift();
+            <string>dead = true;
 </string>
           </argument>
         </arguments>
