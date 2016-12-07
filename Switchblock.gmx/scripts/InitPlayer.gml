@@ -42,29 +42,42 @@ if(dead)
 }
 //check the input
 var buttonPressed = false;
+var forceX = 0;
+var forceY = 0;
+
 if(GetButton(LEFT))
 {
     buttonPressed = true;
-    physics_apply_force(x, y, -t_acceleration, 0);
+    forceX = -1;
     phy_rotation = 270;
 }
 if(GetButton(RIGHT))
 {
     buttonPressed = true;
-    physics_apply_force(x, y, t_acceleration, 0);
+    forceX = 1;
     phy_rotation = 90;
 }
 if(GetButton(UP))
 {
     buttonPressed = true;
-    physics_apply_force(x, y, 0, -t_acceleration);
+    forceY = -1;
     phy_rotation = 0;
 }
 if(GetButton(DOWN))
 {
     buttonPressed = true;
-    physics_apply_force(x, y, 0, t_acceleration);
+    forceY = 1;
     phy_rotation = 180;
+}
+
+if (place_meeting(x + phy_speed_x + forceX * maxSpeed, y + phy_speed_y + forceY * maxSpeed, obj_wall))
+{
+    physics_apply_force(x, y, forceX  * t_acceleration, forceY * t_acceleration);
+}
+else
+{
+    phy_speed_x = 0;
+    phy_speed_y = 0;
 }
 
 //no button was pressed - decelerate

@@ -24,6 +24,8 @@
       <sprite>sprites\spr_floor</sprite>
     </sprites>
     <sprite>sprites\spr_spawn</sprite>
+    <sprite>sprites\sprite9</sprite>
+    <sprite>sprites\spr_background</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -34,6 +36,9 @@
     <script>scripts\Raycast.gml</script>
     <script>scripts\InitGame.gml</script>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\sh_background.shader</shader>
+  </shaders>
   <objects name="objects">
     <object>objects\obj_player</object>
     <object>objects\obj_floor</object>
@@ -42,9 +47,11 @@
     <object>objects\obj_rect</object>
     <object>objects\obj_levelEditor</object>
     <object>objects\obj_spawnPoint</object>
+    <object>objects\obj_background</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
+    <room>rooms\rm_backgroundTest</room>
     <room>rooms\rm_test</room>
   </rooms>
   <constants number="7">
