@@ -9,8 +9,8 @@
   <bboxmode>0</bboxmode>
   <bbox_left>2</bbox_left>
   <bbox_right>14</bbox_right>
-  <bbox_top>5</bbox_top>
-  <bbox_bottom>11</bbox_bottom>
+  <bbox_top>4</bbox_top>
+  <bbox_bottom>13</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
@@ -21,6 +21,11 @@
   <width>16</width>
   <height>16</height>
   <frames>
-    <frame index="0">images\spr_player_topdown_0.png</frame>
+    <frame index="0">images\spr_player_topdownRun_0.png</frame>
+    <frame index="1">images\spr_player_topdownRun_1.png</frame>
+    <frame index="2">images\spr_player_topdownRun_2.png</frame>
+    <frame index="3">images\spr_player_topdownRun_3.png</frame>
+    <frame index="4">images\spr_player_topdownRun_4.png</frame>
+    <frame index="5">images\spr_player_topdownRun_5.png</frame>
   </frames>
 </sprite>

@@ -7,11 +7,23 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_player_topdown</sprite>
-    <sprite>sprites\spr_player_platform</sprite>
-    <sprite>sprites\spr_floor</sprite>
-    <sprite>sprites\spr_wall</sprite>
-    <sprite>sprites\spr_player_platformRun</sprite>
+    <sprites name="Player">
+      <sprites name="top">
+        <sprite>sprites\spr_player_topdown</sprite>
+        <sprite>sprites\spr_player_topdownRun</sprite>
+        <sprite>sprites\spr_player_topdownFall</sprite>
+      </sprites>
+      <sprites name="side">
+        <sprite>sprites\spr_player_platformRun</sprite>
+        <sprite>sprites\spr_player_platform</sprite>
+        <sprite>sprites\spr_player_platformJump</sprite>
+      </sprites>
+    </sprites>
+    <sprites name="Scenery">
+      <sprite>sprites\spr_wall</sprite>
+      <sprite>sprites\spr_floor</sprite>
+    </sprites>
+    <sprite>sprites\spr_spawn</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -29,12 +41,14 @@
     <object>objects\obj_input</object>
     <object>objects\obj_rect</object>
     <object>objects\obj_levelEditor</object>
+    <object>objects\obj_spawnPoint</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="6">
+  <constants number="7">
+    <constant name="TILE_SIZE">16</constant>
     <constant name="NUM_INPUT">5</constant>
     <constant name="LEFT">0</constant>
     <constant name="RIGHT">1</constant>

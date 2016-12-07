@@ -21,6 +21,10 @@
   <width>16</width>
   <height>16</height>
   <frames>
-    <frame index="0">images\spr_player_topdown_0.png</frame>
+    <frame index="0">images\spr_player_topdownFall_0.png</frame>
+    <frame index="1">images\spr_player_topdownFall_1.png</frame>
+    <frame index="2">images\spr_player_topdownFall_2.png</frame>
+    <frame index="3">images\spr_player_topdownFall_3.png</frame>
+    <frame index="4">images\spr_player_topdownFall_4.png</frame>
   </frames>
 </sprite>
