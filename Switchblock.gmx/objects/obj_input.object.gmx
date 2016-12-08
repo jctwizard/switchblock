@@ -87,7 +87,7 @@ input[RIGHT] = keyboard_check(ord("D")) || keyboard_check(vk_right);
 input[UP] = keyboard_check(ord("W")) || keyboard_check(vk_up);
 input[DOWN] = keyboard_check(ord("S")) || keyboard_check(vk_down);
 input[ACTION] = keyboard_check(vk_space);
-input[SHIFT] = keyboard_check("E");
+input[SHIFT] = keyboard_check(ord("E"));
 </string>
           </argument>
         </arguments>

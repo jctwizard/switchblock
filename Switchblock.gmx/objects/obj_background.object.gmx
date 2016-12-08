@@ -27,8 +27,8 @@
             <kind>1</kind>
             <string>elapsed_time = 0.0;
 elapsed_time_uniform = shader_get_uniform(sh_background, "f_Time");
-image_xscale = window_get_width() / sprite_width;
-image_yscale = window_get_height() / sprite_height;
+image_xscale = room_width / sprite_width;
+image_yscale = room_height / sprite_height;
 </string>
           </argument>
         </arguments>

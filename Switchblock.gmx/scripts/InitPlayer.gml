@@ -55,7 +55,7 @@ if(GetButton(DOWN))
     phy_rotation = 180;
 }
 
-if (place_meeting(x + phy_speed_x + forceX * maxSpeed, y + phy_speed_y + forceY * maxSpeed, obj_wall))
+if (place_meeting(x + phy_speed_x - forceX * sprite_width*0.5, y + phy_speed_y + forceY * sprite_height*0.5, obj_wall))
 {
     physics_apply_force(x, y, forceX  * t_acceleration, forceY * t_acceleration);
 }
