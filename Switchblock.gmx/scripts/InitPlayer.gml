@@ -17,6 +17,10 @@ idleSpeed = (1/15);
 runSpeed = 0.25;
 prevSprite = sprite_index;
 
+exiting = false;
+door_x = 0;
+door_y = 0;
+
 #define PlayerStepTopdown
 ///PlayerStepTopdown
 if(dead)
@@ -90,7 +94,7 @@ if(!place_meeting(x, y, obj_wall))
 var multiplier = 1;
 if(!onGround)
 {
-    multiplier = 0.1;
+    multiplier = 0.5;
 }
 if(GetButton(LEFT))
 {
@@ -113,16 +117,21 @@ if(GetButtonReleased(UP))
 
 if(place_meeting(x, y+1, obj_floor))
 {
-    onGround = true;
+    if (onGround == false)
+    {
+        phy_speed_y = 0;
+        onGround = true;
+    }
 }
-else
+else if (onGround == true)
 {
-    onGround = false
+    onGround = false;
 }
 
 if(GetButtonDown(ACTION) && onGround)
 {
     print("jump");
+    phy_speed_y = 0;
     physics_apply_force(x, y, 0, jumpForce);    
 }
 
@@ -148,7 +157,7 @@ if(global.topdown)
     }
     else if(abs(phy_speed) > 0.1)
     {
-        image_xscale = -sign(phy_speed);
+        image_xscale = -sign(phy_speed) * abs(image_xscale);
         sprite_index = spr_player_topdownRun;
         image_speed = runSpeed + (runSpeed * (abs(phy_speed) / maxSpeed));
     }
@@ -185,6 +194,24 @@ if(sprite_index != prevSprite)
 }
 
 prevSprite = sprite_index;
+
+if (exiting)
+{
+    image_xscale = image_xscale * 0.95;
+    image_yscale = image_yscale * 0.95;
+    
+    x_diff = (door_x - x);
+    y_diff = (door_y - y);
+    
+    distance = distance_to_point(door_x, door_y);
+    
+    physics_apply_force(x_diff, y_diff, 100 * sign(x_diff), 100 * sign(y_diff));
+    
+    if (abs(image_xscale) <= 0.1)
+    {
+        room_goto_next();
+    }
+}
 
 #define PlayerRespawn
 ///PlayerRespawn()
