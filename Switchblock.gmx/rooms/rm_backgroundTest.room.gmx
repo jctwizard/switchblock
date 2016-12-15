@@ -66,6 +66,7 @@
     <instance objName="obj_spawnPoint" x="624" y="664" name="inst_AB285D24" locked="0" code="topdown = true;&#xA;PlayerRespawn();&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spikeBlock" x="888" y="536" name="inst_F871FCD8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spikeBlock" x="896" y="648" name="inst_935DC3A5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_door" x="608" y="560" name="inst_EDA0BCF2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>-1</PhysicsWorld>
