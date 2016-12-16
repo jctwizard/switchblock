@@ -115,7 +115,7 @@ if(GetButtonReleased(UP))
     }
 }
 
-if(place_meeting(x, y+1, obj_floor))
+if(place_meeting(x, y+1, obj_block))
 {
     if (onGround == false)
     {
@@ -173,7 +173,7 @@ else
 
     if(abs(phy_speed_x) > 0.1)
     {
-        image_xscale = -sign(phy_speed_x);
+        image_xscale = -sign(phy_speed_x) * abs(image_xscale);
         sprite_index = spr_player_platformRun;
         image_speed = runSpeed + (runSpeed * (abs(phy_speed_x) / maxSpeed));
     }
