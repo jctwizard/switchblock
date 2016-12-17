@@ -64,15 +64,15 @@ PlayerUpdateAnimation();
         </arguments>
       </action>
     </event>
-    <event eventtype="4" ename="obj_block">
+    <event eventtype="4" ename="obj_pushableBlock">
       <action>
         <libid>1</libid>
-        <id>605</id>
-        <kind>0</kind>
+        <id>603</id>
+        <kind>7</kind>
         <userelative>0</userelative>
         <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>0</exetype>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
         <whoName>self</whoName>
@@ -81,7 +81,11 @@ PlayerUpdateAnimation();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>LET THE BODIES HIT THE FLOOR</string>
+            <string>if (abs(x - other.x) &gt; TILE_SIZE/2)
+{
+    pushing = true;
+}
+</string>
           </argument>
         </arguments>
       </action>
@@ -103,10 +107,37 @@ PlayerUpdateAnimation();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>exiting = true;
-door_x = other.x;
-door_y = other.y;
+            <string>if (exiting == false)
+{
+    exiting = true;
+    door_x = other.x;
+    door_y = other.y;
+    phy_speed_x = 0;
+    phy_speed_y = 0;
+}
 </string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_block">
+      <action>
+        <libid>1</libid>
+        <id>605</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>0</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>LET THE BODIES HIT THE FLOOR</string>
           </argument>
         </arguments>
       </action>

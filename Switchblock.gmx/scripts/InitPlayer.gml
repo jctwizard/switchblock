@@ -1,6 +1,8 @@
 #define InitPlayer
 //gameplay
 dead = false;
+pushing = false;
+exiting = false;
 checkpoint = noone;
 
 //movement
@@ -9,6 +11,7 @@ s_acceleration = 500;
 t_acceleration = 100;
 onGround = false;
 jumpForce = -1750;
+attemptedMove = false;
 
 phy_fixed_rotation = true;
 
@@ -17,7 +20,7 @@ idleSpeed = (1/15);
 runSpeed = 0.25;
 prevSprite = sprite_index;
 
-exiting = false;
+// Exit location
 door_x = 0;
 door_y = 0;
 
@@ -75,6 +78,10 @@ if(!buttonPressed)
     phy_speed_x *= 0.75;
     phy_speed_y *= 0.75;
 }
+else
+{
+    attemptedMove = true;
+}
 
 //clamp the velocity
 if(phy_speed > maxSpeed)
@@ -100,11 +107,13 @@ if(GetButton(LEFT))
 {
     physics_apply_force(x, y, -s_acceleration * multiplier, 0);
     image_xscale = 1;
+    attemptedMove = true;
 }
 if(GetButton(RIGHT))
 {
     physics_apply_force(x, y, s_acceleration * multiplier, 0);
     image_xscale = -1;
+    attemptedMove = true;
 }
 
 if(GetButtonReleased(UP))
@@ -158,8 +167,20 @@ if(global.topdown)
     else if(abs(phy_speed) > 0.1)
     {
         image_xscale = -sign(phy_speed) * abs(image_xscale);
-        sprite_index = spr_player_topdownRun;
-        image_speed = runSpeed + (runSpeed * (abs(phy_speed) / maxSpeed));
+        
+        if (pushing)
+        {
+            sprite_index = spr_player_topdownPush;
+        }
+        else
+        {
+            sprite_index = spr_player_topdownRun;
+            image_speed = runSpeed + (runSpeed * (abs(phy_speed) / maxSpeed));
+        }
+    }
+    else if (attemptedMove)
+    {
+        sprite_index = spr_player_topdownPush;
     }
     else
     {
@@ -174,8 +195,20 @@ else
     if(abs(phy_speed_x) > 0.1)
     {
         image_xscale = -sign(phy_speed_x) * abs(image_xscale);
-        sprite_index = spr_player_platformRun;
-        image_speed = runSpeed + (runSpeed * (abs(phy_speed_x) / maxSpeed));
+        
+        if (pushing)
+        {
+            sprite_index = spr_player_platformPush;
+        }
+        else
+        {
+            sprite_index = spr_player_platformRun;
+            image_speed = runSpeed + (runSpeed * (abs(phy_speed_x) / maxSpeed));
+        }
+    }
+    else if (attemptedMove)
+    {
+        sprite_index = spr_player_platformPush;
     }
     else
     {
@@ -194,6 +227,8 @@ if(sprite_index != prevSprite)
 }
 
 prevSprite = sprite_index;
+pushing = false;
+attemptedMove = false;
 
 if (exiting)
 {

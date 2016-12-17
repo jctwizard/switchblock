@@ -9,12 +9,14 @@
     <sprites name="Player">
       <sprites name="top">
         <sprite>sprites\spr_player_topdown</sprite>
+        <sprite>sprites\spr_player_topdownPush</sprite>
         <sprite>sprites\spr_player_topdownRun</sprite>
         <sprite>sprites\spr_player_topdownFall</sprite>
       </sprites>
       <sprites name="side">
         <sprite>sprites\spr_player_platformRun</sprite>
         <sprite>sprites\spr_player_platform</sprite>
+        <sprite>sprites\spr_player_platformPush</sprite>
         <sprite>sprites\spr_player_platformJump</sprite>
       </sprites>
     </sprites>
