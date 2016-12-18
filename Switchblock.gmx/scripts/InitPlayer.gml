@@ -13,6 +13,11 @@ onGround = false;
 jumpForce = -1750;
 attemptedMove = false;
 
+dashing = false;
+dashTime = 0.1;
+dashTimer = 0;
+dashForce = 10000;
+
 phy_fixed_rotation = true;
 
 //animation
@@ -26,74 +31,101 @@ door_y = 0;
 
 #define PlayerStepTopdown
 ///PlayerStepTopdown
-if(dead)
+if(!dashing)
 {
-    phy_speed_x = 0;
-    phy_speed_y = 0;
-    exit;
-}
-//check the input
-var buttonPressed = false;
-var forceX = 0;
-var forceY = 0;
+    if(dead)
+    {
+        phy_speed_x = 0;
+        phy_speed_y = 0;
+        exit;
+    }
+    //check the input
+    var buttonPressed = false;
+    var forceX = 0;
+    var forceY = 0;
+    
+    if(GetButton(LEFT))
+    {
+        buttonPressed = true;
+        forceX = -1;
+        phy_rotation = 270;
+    }
+    if(GetButton(RIGHT))
+    {
+        buttonPressed = true;
+        forceX = 1;
+        phy_rotation = 90;
+    }
+    if(GetButton(UP))
+    {
+        buttonPressed = true;
+        forceY = -1;
+        phy_rotation = 0;
+    }
+    if(GetButton(DOWN))
+    {
+        buttonPressed = true;
+        forceY = 1;
+        phy_rotation = 180;
+    }
+    
+    if (place_meeting(x + phy_speed_x - forceX * sprite_width*0.5, y + phy_speed_y + forceY * sprite_height*0.5, obj_wall))
+    {
+        physics_apply_force(x, y, forceX  * t_acceleration, forceY * t_acceleration);
+    }
+    else
+    {
+        phy_speed_x = 0;
+        phy_speed_y = 0;
+    }
+    
+    //no button was pressed - decelerate
+    if(!buttonPressed)
+    {
+        phy_speed_x *= 0.75;
+        phy_speed_y *= 0.75;
+    }
+    else
+    {
+        attemptedMove = true;
+    }
 
-if(GetButton(LEFT))
-{
-    buttonPressed = true;
-    forceX = -1;
-    phy_rotation = 270;
-}
-if(GetButton(RIGHT))
-{
-    buttonPressed = true;
-    forceX = 1;
-    phy_rotation = 90;
-}
-if(GetButton(UP))
-{
-    buttonPressed = true;
-    forceY = -1;
-    phy_rotation = 0;
-}
-if(GetButton(DOWN))
-{
-    buttonPressed = true;
-    forceY = 1;
-    phy_rotation = 180;
-}
-
-if (place_meeting(x + phy_speed_x - forceX * sprite_width*0.5, y + phy_speed_y + forceY * sprite_height*0.5, obj_wall))
-{
-    physics_apply_force(x, y, forceX  * t_acceleration, forceY * t_acceleration);
+    //clamp the velocity
+    if(phy_speed > maxSpeed)
+    {
+        phy_speed_x = (phy_speed_x/phy_speed) * maxSpeed;
+        phy_speed_y = (phy_speed_y/phy_speed) * maxSpeed;
+    }
+    
+    //check for floor(wall) collisions
+    if(!place_meeting(x, y, obj_wall))
+    {
+        dead = true;
+    }
+    
+    if(GetButtonDown(DASH))
+    {
+        dashing = true;
+        //calculate the dash direcction
+        var rot = phy_rotation - 90;
+        var xForce = cos(rot * (pi/180)) * dashForce;
+        var yForce = sin(rot * (pi/180)) * dashForce;
+        physics_apply_force(x, y, xForce, yForce);
+    }
 }
 else
 {
-    phy_speed_x = 0;
-    phy_speed_y = 0;
-}
-
-//no button was pressed - decelerate
-if(!buttonPressed)
-{
-    phy_speed_x *= 0.75;
-    phy_speed_y *= 0.75;
-}
-else
-{
-    attemptedMove = true;
-}
-
-//clamp the velocity
-if(phy_speed > maxSpeed)
-{
-    phy_speed_x = (phy_speed_x/phy_speed) * maxSpeed;
-    phy_speed_y = (phy_speed_y/phy_speed) * maxSpeed;
-}
-
-//check for floor(wall) collisions
-if(!place_meeting(x, y, obj_wall))
-{
-    dead = true;
+    dashTimer += DeltaTime();
+    if(dashTimer >= dashTime || phy_speed < maxSpeed * 0.1)
+    {
+        dashTimer = 0;
+        dashing = false;
+        //check if the player has landed on a wall
+        if(!place_meeting(x, y, obj_wall))
+        {
+            Shift();
+        }
+    }
 }
 
 #define PlayerStepPlatform
@@ -103,6 +135,7 @@ if(!onGround)
 {
     multiplier = 0.5;
 }
+
 if(GetButton(LEFT))
 {
     physics_apply_force(x, y, -s_acceleration * multiplier, 0);
@@ -115,7 +148,12 @@ if(GetButton(RIGHT))
     image_xscale = -1;
     attemptedMove = true;
 }
-
+//damp movement
+if(!attemptedMove && onGround)
+{
+    phy_speed_x *= 0.75;
+}
+//damp the jump 
 if(GetButtonReleased(UP))
 {
     if(phy_speed_y < 0)
@@ -163,6 +201,10 @@ if(global.topdown)
     {
         sprite_index = spr_player_topdownFall;
         image_speed = runSpeed;
+    }
+    else if(dashing)
+    {
+        sprite_index = spr_player_topdownDash;
     }
     else if(abs(phy_speed) > 0.1)
     {

@@ -89,6 +89,7 @@ input[DOWN] = keyboard_check(ord("S")) || keyboard_check(vk_down);
 input[ACTION] = keyboard_check(vk_space);
 input[SHIFT] = keyboard_check(ord("E"));
 input[RESTART] = keyboard_check(ord("R"));
+input[DASH] = keyboard_check(vk_space);
 </string>
           </argument>
         </arguments>
