@@ -61,9 +61,10 @@
     <instance objName="obj_spawnPoint" x="584" y="776" name="inst_AB285D24" locked="0" code="topdown = true;&#xA;PlayerRespawn();&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spikeBlock" x="808" y="624" name="inst_2E310B19" locked="0" code="" scaleX="6" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="808" y="624" name="inst_9B4B57EE" locked="0" code="" scaleX="6" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_pushableBlock" x="736" y="768" name="inst_D708484F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_pushableBlock" x="712" y="768" name="inst_64D27149" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_pushableBlock" x="648" y="808" name="inst_D708484F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_pushableBlock" x="704" y="800" name="inst_64D27149" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_door" x="544" y="560" name="inst_64FB22BF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_floor" x="672" y="784" name="inst_4AA640A5" locked="0" code="" scaleX="1" scaleY="3.5" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>-1</PhysicsWorld>

@@ -63,7 +63,7 @@ physics_apply_force(x, y, force*cos(angle), force*sin(angle));
             <string>if(landed)
 {
     phy_active = false;
-    if(parent != noone &amp;&amp; !is_undefined(parent))
+    if(parent != noone &amp;&amp; instance_exists(parent))
     {
         phy_position_x = parent.x + offsetX;
         phy_position_y = parent.y + offsetY;
