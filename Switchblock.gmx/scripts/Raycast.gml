@@ -1,19 +1,25 @@
-///Raycast(xDir, yDir, length, increment, object)
+///Raycast(xDir, yDir, length, increment, object, [out])
 ///Casts a line from the calling object to check for collisions
 ///returns collision id or noone
-var xDir = argument0;
-var yDir = argument1;
-var length = argument2;
-var increment = argument3;
-var object = argument4;
+///can output to a vector
+var angle = argument[0];
+//var yDir = argument[1];
+var length = argument[1];
+var increment = argument[2];
+var object = argument[3];
+var out = noone;
+if(argument_count > 3)
+{
+    out = argument[4];
+}
 
-var angle = arctan2(yDir, xDir);
+//var angle = arctan2(yDir, xDir);
 
-var xEnd = phy_position_x + (length * cos(angle));
-var yEnd = phy_position_y + (length * sin(angle));
+var xEnd = x + (length * cos(angle));
+var yEnd = y + (length * sin(angle));
 
-var xVal = phy_position_x;
-var yVal = phy_position_y;
+var xVal = x;
+var yVal = y;
 
 var steps = length/increment;
 
@@ -23,11 +29,30 @@ var yStep = increment * sin(angle);
 
 for(var i = 0; i < steps; i++)
 {    
+    if(xVal > room_width || xVal < 0 || yVal > room_height || yVal < 0)
+    {
+        if(out != noone)
+        {
+            out.x = xVal;
+            out.y = yVal;
+        }
+        return 0;
+    }
     
-    var collision = collision_point(xVal, yVal, object, false, true)
+    var collision = collision_point(xVal, yVal, object, false, true);
     if(collision != noone)
     {
-        return collision;
+        points = GetBlockPoints(collision);
+        if(point_in_rectangle(xVal, yVal, ds_list_find_value(points, 0), ds_list_find_value(points, 1), ds_list_find_value(points, 6), ds_list_find_value(points, 7)))
+        {
+            if(out != noone)
+            {
+                out.x = xVal;
+                out.y = yVal;
+            }
+            return collision;
+        }
+        ds_list_destroy(points);
     }
     xVal += xStep;
     yVal -= yStep;

@@ -48,9 +48,11 @@
     <script>scripts\Shift.gml</script>
     <script>scripts\Restart.gml</script>
     <script>scripts\DeltaTime.gml</script>
+    <script>scripts\GetBlockPoints.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_background.shader</shader>
+    <shader type="GLSLES">shaders\sh_lightMap.shader</shader>
   </shaders>
   <objects name="objects">
     <object>objects\obj_player</object>
@@ -73,9 +75,15 @@
       <object>objects\obj_pushableBlock</object>
     </objects>
     <object>objects\obj_blood</object>
+    <objects name="Lighting">
+      <object>objects\obj_vector</object>
+      <object>objects\obj_lightingManager</object>
+      <object>objects\obj_lightMap</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
+    <room>rooms\rm_lightTest</room>
     <room>rooms\rm_bloodTest</room>
     <room>rooms\rm_pushableTest</room>
     <room>rooms\rm_backgroundTest</room>
