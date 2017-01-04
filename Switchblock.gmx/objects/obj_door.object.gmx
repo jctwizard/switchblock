@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>initial_y = y;
 elapsed = 0.0;
+locked = false;
 </string>
           </argument>
         </arguments>
@@ -49,8 +50,17 @@ elapsed = 0.0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>elapsed += 1 / room_speed;
-phy_position_y = initial_y + sin(elapsed) * 5;
+            <string>if (locked)
+{
+    image_index = 1;
+}
+else
+{
+    image_index = 0;
+    
+    elapsed += 1 / room_speed;
+    phy_position_y = initial_y + sin(elapsed) * 5;
+}
 </string>
           </argument>
         </arguments>

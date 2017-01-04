@@ -33,8 +33,9 @@
     <sprites name="Hazards">
       <sprite>sprites\spr_block</sprite>
     </sprites>
-    <sprites name="Items">
+    <sprites name="Interactables">
       <sprite>sprites\spr_pushableBlock</sprite>
+      <sprite>sprites\spr_switch</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background"/>
@@ -71,8 +72,9 @@
     <objects name="Hazards">
       <object>objects\obj_spikeBlock</object>
     </objects>
-    <objects name="Items">
+    <objects name="Interactables">
       <object>objects\obj_pushableBlock</object>
+      <object>objects\obj_switch</object>
     </objects>
     <object>objects\obj_blood</object>
     <objects name="Lighting">
