@@ -1,14 +1,13 @@
-///Raycast(xDir, yDir, length, increment, object, [out])
+///Raycast(angle, length, increment, object, [out])
 ///Casts a line from the calling object to check for collisions
 ///returns collision id or noone
 ///can output to a vector
 var angle = argument[0];
-//var yDir = argument[1];
 var length = argument[1];
 var increment = argument[2];
 var object = argument[3];
 var out = noone;
-if(argument_count > 3)
+if(argument_count > 4)
 {
     out = argument[4];
 }

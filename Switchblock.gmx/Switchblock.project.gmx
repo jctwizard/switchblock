@@ -32,6 +32,7 @@
     <sprite>sprites\spr_background</sprite>
     <sprites name="Hazards">
       <sprite>sprites\spr_block</sprite>
+      <sprite>sprites\spr_turret</sprite>
     </sprites>
     <sprites name="Interactables">
       <sprite>sprites\spr_pushableBlock</sprite>
@@ -71,6 +72,7 @@
     </objects>
     <objects name="Hazards">
       <object>objects\obj_spikeBlock</object>
+      <object>objects\obj_turret</object>
     </objects>
     <objects name="Interactables">
       <object>objects\obj_pushableBlock</object>
@@ -85,6 +87,7 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
+    <room>rooms\rm_turretTest</room>
     <room>rooms\rm_lightTest</room>
     <room>rooms\rm_bloodTest</room>
     <room>rooms\rm_pushableTest</room>
