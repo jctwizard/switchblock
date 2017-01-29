@@ -25,22 +25,16 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.topdown = false;
-if(instance_number(obj_lightingManager) == 0)
-{
-    instance_create(0, 0, obj_lightingManager);
-}
-
-if(instance_number(obj_lightMap) == 0)
-{
-    instance_create(0, 0, obj_lightMap);
-}
+            <string>angle = 25;
+direction = 270;
+distance = 250;
+colour = c_white;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="0">
+    <event eventtype="8" enumb="73">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -57,16 +51,33 @@ if(instance_number(obj_lightMap) == 0)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///check if the player wants to shift
-if(GetButtonDown(SHIFT))
+            <string>minAngle = direction - angle*0.5;
+maxAngle = direction + angle*0.5;
+step = angle/10;
+
+if(surface_exists(obj_lightMap.lightMap))
 {
-    Shift();
+    surface_set_target(obj_lightMap.lightMap);
 }
-///check if the player wants to restart
-if(GetButtonDown(RESTART))
+
+var point1 = instance_create(0, 0, obj_vector);
+var point2 = instance_create(0, 0, obj_vector);
+for(var i = minAngle + step; i &lt; maxAngle; i+=step)
 {
-    Restart();
+    Raycast(degtorad(i-step), distance, TILE_SIZE*0.5, obj_block, true, point2);
+    Raycast(degtorad(i), distance, TILE_SIZE*0.5, obj_block, true, point1);
+    draw_set_colour(colour);
+    draw_set_alpha(0.5);
+    draw_set_blend_mode_ext(bm_one, bm_zero);
+    draw_triangle(x, y, point1.x, point1.y, point2.x, point2.y, false);
+    draw_set_alpha(1);
+    draw_set_blend_mode(bm_normal);
 }
+
+with(point1) instance_destroy();
+with(point2) instance_destroy();
+
+surface_reset_target();
 </string>
           </argument>
         </arguments>

@@ -190,7 +190,7 @@ for(var i = 0; i &lt; ds_list_size(dynamicEndpoints); i++)
     
     with(obj_player)
     {
-        hitObj = Raycast(angle, room_width + room_height, TILE_SIZE*0.5, obj_block, hitPoint)
+        hitObj = Raycast(angle, room_width + room_height, TILE_SIZE*0.5, obj_block, true, hitPoint)
     }
     if(hitObj != noone)
     {
@@ -209,7 +209,7 @@ for(var i = 0; i &lt; ds_list_size(fixedEndpoints); i++)
     
     with(obj_player)
     {
-        hitObj = Raycast(angle, room_width + room_height, TILE_SIZE*0.5, obj_block, hitPoint)
+        hitObj = Raycast(angle, room_width + room_height, TILE_SIZE*0.5, obj_block, true, hitPoint)
     }
     if(hitObj)
     {
@@ -241,6 +241,32 @@ for(var i = 0; i &lt; ds_list_size(angles); i++)
     }
     ds_list_add(trianglePoints, instance_create(xVal, yVal, obj_vector));    
 }*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_text(0, 0, "instance count: " + string(instance_count));
+draw_text(0, string_height("0"), "FPS: " + string(1/DeltaTime()));
 </string>
           </argument>
         </arguments>
@@ -291,14 +317,14 @@ if(instance_number(obj_player) &gt; 0)
     var angle2 = ds_list_find_value(angles, ds_list_size(angles)-1);
     var p1 = ds_map_find_value(trianglePoints, angle1);
     var p2 = ds_map_find_value(trianglePoints, angle2);
-    draw_set_blend_mode(bm_zero);
-    
-    //if(instance_exists(p1) &amp;&amp; instance_exists(p2))
+    draw_set_blend_mode_ext(bm_one, bm_zero);
+    draw_set_alpha(0.0);
+    if(!is_undefined(p1) &amp;&amp; !is_undefined(p2))
     {
         draw_triangle_colour(startX, startY, p1.x, p1.y, p2.x, p2.y, c_white, c_white, c_white, false);
     }
-    
     draw_set_blend_mode(bm_normal);
+    draw_set_alpha(1.0);
     
     //draw the remaining triangles
     while(!ds_list_empty(angles))
@@ -307,20 +333,30 @@ if(instance_number(obj_player) &gt; 0)
         var angle2 = ds_list_find_value(angles, 1);
         var p1 = ds_map_find_value(trianglePoints, angle1);
         var p2 = ds_map_find_value(trianglePoints, angle2);
-        draw_set_blend_mode(bm_zero);
-        
-        //if(instance_exists(p1) &amp;&amp; instance_exists(p2))
+        draw_set_blend_mode_ext(bm_one, bm_zero);
+        draw_set_alpha(0.0);
+        if(!is_undefined(p1) &amp;&amp; !is_undefined(p2))
         {
             draw_triangle_colour(startX, startY, p1.x, p1.y, p2.x, p2.y, c_white, c_white, c_white, false);
         }
         draw_set_blend_mode(bm_normal);
-        with(p1)
+        draw_set_alpha(1.0);
+        /*with(p1)
+        {
+            instance_destroy();
+        }*/
+        ds_list_delete(angles, 0);
+    }
+    while(!ds_map_empty(trianglePoints))
+    {
+        var key = ds_map_find_first(trianglePoints);
+        with(ds_map_find_value(trianglePoints, key))
         {
             instance_destroy();
         }
-        ds_list_delete(angles, 0);
+        ds_map_delete(trianglePoints, key);
     }
-    ds_map_clear(trianglePoints);        
+    //ds_map_clear(trianglePoints);        
 }
 surface_reset_target();
 </string>

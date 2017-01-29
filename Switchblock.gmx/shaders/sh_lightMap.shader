@@ -28,6 +28,7 @@ uniform vec4 v_ShadowColour;
 
 void main()
 {
-    gl_FragColor = vec4(0.1, 0.1, 0.1, (1.0 - texture2D( gm_BaseTexture, v_vTexcoord ).r) * 0.75);
+    vec4 col = texture2D( gm_BaseTexture, v_vTexcoord );
+    gl_FragColor = vec4(col.r, col.g, col.b, col.a * 0.75);
 }
 

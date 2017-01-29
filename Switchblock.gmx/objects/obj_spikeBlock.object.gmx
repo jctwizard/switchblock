@@ -26,13 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>///Kill the player
-other.dead = true;
 phy_speed_x = 0;
 phy_speed_y = 0;
-repeat(random_range(10, 20))
-{
-    instance_create(other.x, other.y, obj_blood);
-}
+KillPlayer();
 </string>
           </argument>
         </arguments>

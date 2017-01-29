@@ -29,6 +29,13 @@
 eyePosX = 0;
 eyePosY = 0;
 hitPos = instance_create(0, 0, obj_vector);
+maxAngle = 25;
+curAngle = 25;
+spot = CreateSpotlight(x, y, curAngle, 0, 250, c_red);
+closeSpeed = 5;
+kill = false;
+maxKillFrames = 3;
+killFrames = maxKillFrames;
 </string>
           </argument>
         </arguments>
@@ -51,13 +58,13 @@ hitPos = instance_create(0, 0, obj_vector);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var dir = 0
+            <string>dir = 0;
 active = false;
 if(instance_exists(obj_player))
 {
     dir = point_direction(x, y, obj_player.x, obj_player.y);
     //print("plauyer"); 
-    Raycast(degtorad(dir) , room_width*2, TILE_SIZE*0.25, obj_block, hitPos)
+    Raycast(degtorad(dir) , room_width*2, TILE_SIZE*0.25, obj_block, false, hitPos)
     if(point_distance(x, y, hitPos.x, hitPos.y) &gt; point_distance(x, y, obj_player.x, obj_player.y))
     {
         active = true;
@@ -68,11 +75,27 @@ if(active)
 {
     eyePosX = x + sprite_width * 0.1 * cos(degtorad(dir));
     eyePosY = y - sprite_height * 0.1 * sin(degtorad(dir));
+    spot.visible = true;
+    spot.direction = dir;
+    if(point_distance(obj_player.x, obj_player.y, x, y) &lt; spot.distance &amp;&amp; !kill)
+    {
+        curAngle-= closeSpeed * DeltaTime();
+        spot.angle = curAngle;
+        if(curAngle &lt;= 0)
+        {
+            KillPlayer();
+            curAngle = maxAngle;
+            kill = true;
+        }
+    }
 }
 else
 {
     eyePosX = x;
     eyePosY = y;
+    spot.visible = false;
+    curAngle = maxAngle;
+    spot.angle = curAngle;
 }
 </string>
           </argument>
@@ -102,6 +125,42 @@ draw_set_colour(c_black);
 draw_circle(eyePosX, eyePosY, 4, false);
 draw_set_colour(c_white);
 
+if(kill)
+{
+    //draw_rectangle(0, 0, room_width, room_height, false);
+    var dist = point_distance(eyePosX, eyePosY, hitPos.x, hitPos.y);
+    var steps = floor(dist / TILE_SIZE);
+    var remainder = (dist/TILE_SIZE) - steps;
+    var angle = point_direction(eyePosX, eyePosY, hitPos.x, hitPos.y);
+    
+    for(var i = 0; i &lt; steps * ((maxKillFrames - killFrames) / maxKillFrames); i++)
+    {
+        var xPos = eyePosX + (TILE_SIZE*i)*cos(degtorad(angle));
+        var yPos = eyePosY - (TILE_SIZE*i)*sin(degtorad(angle));
+        if(i == 0)
+        {
+            draw_sprite_ext(spr_laserBurst, 0, xPos, yPos, 1, 1, angle, c_white, 1);
+        }
+        else
+        {
+            draw_sprite_ext(spr_laserBeam, 0, xPos, yPos, 1, 1, angle, c_white, 1);        
+        }
+    }
+    if(remainder &gt; 0)
+    {
+        var xPos = eyePosX + (TILE_SIZE*steps)*cos(degtorad(angle));
+        var yPos = eyePosY - (TILE_SIZE*steps)*sin(degtorad(angle));
+        draw_sprite_general(spr_laserBeam, 0, 0, 0, TILE_SIZE*remainder, TILE_SIZE, xPos, yPos, 1, 1, angle, c_white, c_white, c_white, c_white, 1);
+    }
+    
+    killFrames--;
+    spot.visible = false;
+    if(killFrames &lt;= 0)
+    {
+        kill = false;
+        killFrames = maxKillFrames;
+    }
+}
 </string>
           </argument>
         </arguments>

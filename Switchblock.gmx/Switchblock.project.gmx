@@ -33,6 +33,8 @@
     <sprites name="Hazards">
       <sprite>sprites\spr_block</sprite>
       <sprite>sprites\spr_turret</sprite>
+      <sprite>sprites\spr_laserBurst</sprite>
+      <sprite>sprites\spr_laserBeam</sprite>
     </sprites>
     <sprites name="Interactables">
       <sprite>sprites\spr_pushableBlock</sprite>
@@ -51,6 +53,8 @@
     <script>scripts\Restart.gml</script>
     <script>scripts\DeltaTime.gml</script>
     <script>scripts\GetBlockPoints.gml</script>
+    <script>scripts\CreateSpotlight.gml</script>
+    <script>scripts\KillPlayer.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_background.shader</shader>
@@ -83,6 +87,7 @@
       <object>objects\obj_vector</object>
       <object>objects\obj_lightingManager</object>
       <object>objects\obj_lightMap</object>
+      <object>objects\obj_spotLight</object>
     </objects>
   </objects>
   <rooms name="rooms">

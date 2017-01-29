@@ -69,6 +69,7 @@
     <instance objName="obj_lightMap" x="56" y="0" name="inst_3C349D26" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_switch" x="648" y="576" name="inst_2F28D5F9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_pushableBlock" x="816" y="552" name="inst_2D7A125D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_spotLight" x="696" y="440" name="inst_BEE89A54" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>-1</PhysicsWorld>
