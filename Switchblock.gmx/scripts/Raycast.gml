@@ -56,66 +56,44 @@ for(var i = 0; i < steps; i++)
         
         points = GetBlockPoints(collision);
         
-        var xMin = ds_list_find_value(points, 0);
-        var xMax = ds_list_find_value(points, 2);
-        var yMin = ds_list_find_value(points, 1);
-        var yMax = ds_list_find_value(points, 5);
+        var xMin = min(ds_list_find_value(points, 0), ds_list_find_value(points, 2), ds_list_find_value(points, 4), ds_list_find_value(points, 6));
+        var xMax = max(ds_list_find_value(points, 0), ds_list_find_value(points, 2), ds_list_find_value(points, 4), ds_list_find_value(points, 6));
+        var yMin = min(ds_list_find_value(points, 1), ds_list_find_value(points, 3), ds_list_find_value(points, 5), ds_list_find_value(points, 7));
+        var yMax = max(ds_list_find_value(points, 1), ds_list_find_value(points, 3), ds_list_find_value(points, 5), ds_list_find_value(points, 7));
         
-        //cast to other edges
-        /*if((xVal <= xMin && xStep > 0) && (yVal >= yMin && yVal <= yMax))
+        
+        if(out != noone)
         {
-            while(xVal < xMax)
-            {
-                xVal++;
-                yVal -= sign(yStep);
-                yVal = clamp(yVal, yMin, yMax);
-            }    
+            out.x = xVal;
+            out.y = yVal;
         }
-        else if((xVal >= xMax && xStep < 0) && (yVal >= yMin && yVal <= yMax))
+        if(precise)
         {
-            while(xVal > xMin)
-            {
-                xVal--;
-                yVal -= sign(yStep);
-                yVal = clamp(yVal, yMin, yMax);
-            }
+            return Raycast(angle, length, 1, object, false, out, xVal - xStep, yVal + yStep);
         }
-        else if((yVal <= yMin && yStep > 0) && (xVal >= xMin && xVal <= xMax))
+        else
         {
-            while(yVal < yMax)
-            {
-                xVal += sign(xStep);
-                yVal++;
-                xVal = clamp(xVal, xMin, xMax);
-            }
-        }
-        else if((yVal >= yMax && yStep < 0) && (xVal >= xMin && xVal <= xMax))
-        {
-            while(yVal > yMin)
-            {
-                xVal += sign(xStep);
-                yVal--;
-                xVal = clamp(xVal, xMin, xMax);
-            }
-        }
-        */
-        //cast beyond corner
-        //if(!((xVal <= xMin || xVal >= xMin) && (yVal <= yMin || yVal >= yMax)))
-        //{
             if(out != noone)
             {
-                out.x = xVal;
-                out.y = yVal;
+                if(xVal <= xMin+1 && xStep > 0)
+                {
+                    out.x = xMax;
+                }
+                if(xVal >= xMax-1 && xStep < 0)
+                {
+                    out.x = xMin;
+                }
+                if(yVal <= yMin+1 && yStep < 0)
+                {
+                    out.y = yMax;
+                }
+                if(yVal >= yMax-1 && yStep > 0)
+                {
+                    out.y = yMin;
+                }
             }
-            if(precise)
-            {
-                return Raycast(angle, length, 1, object, false, out, xVal - xStep, yVal + yStep);
-            }
-            else
-            {
-                return collision;
-            }
-        //}
+            return collision;
+        }
         
         
         

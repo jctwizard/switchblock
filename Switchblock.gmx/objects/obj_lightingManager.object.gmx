@@ -222,25 +222,8 @@ for(var i = 0; i &lt; ds_list_size(fixedEndpoints); i++)
 
 ds_list_sort(angles, true);
 
-/*
-for(var i = 0; i &lt; ds_list_size(angles); i++)
-{
-    var angle = ds_list_find_value(angles, i) * (pi/180);
-    var maxLight = 250;
-    var xVal = obj_player.x + maxLight * cos(angle);
-    var yVal = obj_player.y + maxLight * sin(angle);
-    var hitObj = noone;
-    with(obj_player)
-    {
-        hitObj = Raycast(cos(angle), sin(angle), maxLight, TILE_SIZE*0.5, obj_block, hitPoint)
-    }
-    if(hitObj != noone)
-    {
-        xVal = hitPoint.x;
-        yVal = hitPoint.y;
-    }
-    ds_list_add(trianglePoints, instance_create(xVal, yVal, obj_vector));    
-}*/
+//destroy the vector
+with(hitPoint) instance_destroy();
 </string>
           </argument>
         </arguments>
